@@ -21,6 +21,7 @@ log.info """\
     """
     .stripIndent()
 
+
 // Main workflow
 workflow {
     // Create a channel with the pairs of input files, a channel is like a list
@@ -36,20 +37,21 @@ workflow {
     // Trimming with Fastp
     FASTP(ch_raw_reads)
     
-    // The trimmed reads channel
+    // Saving the trimmed reads names to be the input of the following modules
     ch_trimmed_reads = FASTP.out.trimmed_reads
     
-    // Parallel execution of SPAdes assembly and FastQC on trimmed reads
+    // Parallel execution of SPAdes and FastQC on trimmed reads
     SPADES(ch_trimmed_reads)
     FASTQC(ch_trimmed_reads)
     
-    // Run MultiQC only on FastQC reports
+    // Collect fastqc reports to be the input of the multiqc module
     ch_fastqc_reports = FASTQC.out.zip.collect()
     
     MULTIQC(ch_fastqc_reports)
 }
 
-// Workflow completion notification
+
+// completion notification
 workflow.onComplete {
     log.info "Pipeline completed at: $workflow.complete"
     log.info "Execution status: ${ workflow.success ? 'OK' : 'Failed' }"

@@ -7,7 +7,7 @@ process SPADES {
     tuple val(meta), path(reads)
     
     output:
-    tuple val(meta), path("${meta.id}_assembly"), emit: assembly_dir
+    // tuple val(meta), path("${meta.id}_assembly"), emit: assembly_dir // This would be to save all the files that spades creates
     tuple val(meta), path("${meta.id}_assembly/scaffolds.fasta"), emit: scaffolds
     tuple val(meta), path("${meta.id}_assembly/contigs.fasta"), emit: contigs
     
