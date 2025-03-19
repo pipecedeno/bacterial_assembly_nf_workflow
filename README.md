@@ -19,33 +19,8 @@ This pipeline performs the following steps:
 
 ### Workflow Diagram
 
-```
-                          Raw Reads
-                             |
-                             v
-                     +----------------+
-                     |     FASTP      |
-                     +----------------+
-                             |
-                      Trimmed Reads
-                       /          \
-                      /            \
-                     v              v
-            +----------------+ +----------------+
-            |     SPADES     | |     FASTQC     |
-            +----------------+ +----------------+
-                     |                |
-                     |                |
-              Assembly Files     FastQC Reports
-                                      |
-                                      v
-                                +----------------+
-                                |    MULTIQC     |
-                                +----------------+
-                                      |
-                                      v
-                                 QC Summary
-```
+![](nf_workflow_image.png)
+
 FastQC and SPADES could be executed at the same time or sequentially depending on the mode selected, if executed in sequential order then FastP is going to be executed first, followed by Fastqc and multiqc to end with Spades.
 
 ## Requirements
